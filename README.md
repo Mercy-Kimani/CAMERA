@@ -16,8 +16,13 @@ statistics in multiple ancestries. CAMeRa provides:
 
 ## Installation
 
-You can install the released / development version of CAMeRa from GitHub
-with:
+Install CAMeRa from our MRCIEU R-Universe
+
+```r
+install.packages('CAMeRa', repos = c('https://mrcieu.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+or from its GitHub repository
 
 ``` r
 install.packages("remotes")
