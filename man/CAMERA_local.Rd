@@ -7,6 +7,31 @@
 \description{
 A simple wrapper function for importing data from local files for use with the CAMERA class.
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{metadata}}{Data frame with information about the data. One row per dataset. See details for info on columns}
+
+\item{\code{ld_ref}}{Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference}
+
+\item{\code{mc.cores}}{The number of processor cores to use}
+
+\item{\code{plink_bin}}{Location of executable plink (ver.1.90 is recommended)}
+
+\item{\code{minmaf}}{Minimum allelel frequency per dataset}
+
+\item{\code{pthresh}}{P-value threshold for instrument inclusion}
+
+\item{\code{instrument_raw}}{A data frame of pooled instruments across all ancestries, that has been extracted from each ancestry for the exposure traits}
+
+\item{\code{instrument_outcome}}{Instruments in \code{instrument_raw} extracted from the outcome datasets}
+
+\item{\code{instrument_regions}}{Named list of data frames of length number of unique instruments in \code{instrument_raw}. Names of each item are the instruments. Each item is a list of regional extracts around the instrument from each population exposure study.}
+
+\item{\code{instrument_outcome_regions}}{As per \code{instrument_regions} but for the outcome datasets.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -109,7 +134,7 @@ Function to read in a file
 \describe{
 \item{\code{m}}{File object}
 
-\item{\code{minmaf}}{Minor allele frequency}
+\item{\code{minmaf}}{Minimum allelel frequency per dataset}
 }
 \if{html}{\out{</div>}}
 }
