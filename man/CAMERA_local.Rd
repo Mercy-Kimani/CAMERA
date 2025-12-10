@@ -61,6 +61,7 @@ Create a new dataset and initialise an R interface
 \if{html}{\out{<a id="method-CAMERA_local-standardise"></a>}}
 \if{latex}{\out{\hypertarget{method-CAMERA_local-standardise}{}}}
 \subsection{Method \code{standardise()}}{
+Standardise the allele coding
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA_local$standardise(
   d,
@@ -74,6 +75,25 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ea_col}}{Column name for effect allele}
+
+\item{\code{oa_col}}{Column name for other allele}
+
+\item{\code{beta_col}}{Column name containing beta coefficients}
+
+\item{\code{eaf_col}}{Column name containing allele frequency for effect allele}
+
+\item{\code{chr_col}}{Column name containing chromosome}
+
+\item{\code{pos_col}}{Column name containing position}
+
+\item{\code{vid_col}}{Column name containing variant ID}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA_local-read_file"></a>}}
