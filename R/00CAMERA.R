@@ -2,9 +2,8 @@
 #' @docType class
 #' @description
 #' A simple wrapper function.
-#' Using a summary set, identify set of instruments for the traits, and peform SEM MR to test the association across the population.
+#' Using a summary set, identify set of instruments for the traits, and perform SEM MR to test the association across the population.
 #' @export
-
 CAMERA <- R6::R6Class("CAMERA", list(
   output = list(),
   source = NULL,
