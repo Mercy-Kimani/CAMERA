@@ -54,6 +54,10 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         d
     },
 
+    #' @description
+    #' Function to read in a file
+    #' @param m File object
+    #' @param minmaf Minor allele frequency
     read_file = function(m, minmaf=0.01) {
         stopifnot(nrow(m) == 1)
         stopifnot(file.exists(m$fn))
