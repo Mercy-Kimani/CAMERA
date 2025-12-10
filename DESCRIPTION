@@ -13,7 +13,7 @@ Description: CAMERA estimates joint causal effect in multiple ancestries
 License: MIT + file LICENSE
 Depends: 
     R (>= 4.1.0)
-Imports: 
+Imports:
     dplyr,
     ggplot2,
     ieugwasr (>= 1.1.0),
