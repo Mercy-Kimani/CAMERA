@@ -13,16 +13,27 @@
 #' @param clump_pop Reference population for clumping
 #' @export
 CAMERA <- R6::R6Class("CAMERA", list(
+  #' @field output A list for the output
   output = list(),
+  #' @field source The source of the data.
   source = NULL,
+  #' @field exposure_ids Exposures IDs obtained from IEU GWAS database (<https://gwas.mrcieu.ac.uk>) for each population
   exposure_ids = NULL,
+  #' @field outcome_ids Outcome IDs obtained from IEU GWAS database (<https://gwas.mrcieu.ac.uk>) for each population
   outcome_ids = NULL,
+  #' @field exposure_metadata Exposure metadata
   exposure_metadata = NULL,
+  #' @field outcome_metadata Outcome metadata
   outcome_metadata = NULL,
+  #' @field radius Genomic window size to extract SNPs
   radius = NULL,
+  #' @field pops Ancestry information for each population (i.e., AFR, AMR, EUR, EAS, SAS)
   pops = NULL,
+  #' @field bfiles Locations of LD reference files for each population (Download from: <http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz>)
   bfiles = NULL,
+  #' @field plink Location of executable plink (version 1.90 is recommended)
   plink = NULL,
+  #' @field clump_pop Reference population for clumping
   clump_pop = NULL,
   instrument_raw = NULL,
   instrument_regions = NULL,
