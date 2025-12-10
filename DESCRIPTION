@@ -33,7 +33,7 @@ VignetteBuilder:
     knitr
 Remotes:
     amandaforde/winnerscurse,
-    explodecomputer/genetics.binaRies,
+    MRCIEU/genetics.binaRies,
     MRCIEU/TwoSampleMR,
     WSpiller/RadialMR
 Config/testthat/edition: 3
