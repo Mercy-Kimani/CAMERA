@@ -3,6 +3,14 @@
 #' @description
 #' A simple wrapper function.
 #' Using a summary set, identify set of instruments for the traits, and perform SEM MR to test the association across the population.
+#' @param x R6 Environment created for CAMERA. Default = x
+#' @param exposure_ids Exposures IDs obtained from IEU GWAS database (<https://gwas.mrcieu.ac.uk>) for each population
+#' @param outcome_ids Outcome IDs obtained from IEU GWAS database (<https://gwas.mrcieu.ac.uk>) for each population
+#' @param pops Ancestry information for each population (i.e., AFR, AMR, EUR, EAS, SAS)
+#' @param bfiles Locations of LD reference files for each population (Download from: <http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz>)
+#' @param plink Location of executable plink (version 1.90 is recommended)
+#' @param radius Genomic window size to extract SNPs
+#' @param clump_pop Reference population for clumping
 #' @export
 CAMERA <- R6::R6Class("CAMERA", list(
   output = list(),
@@ -55,7 +63,6 @@ CAMERA <- R6::R6Class("CAMERA", list(
   # for convenience can migrate the results from a previous CAMERA into this one
   #' @description
   #' Migrate the results from a previous CAMERA
-  #' @param x R6 Environment created for CAMERA. Default = x
   import = function(x) {
     nom <- names(self)
     for (i in nom)
@@ -91,13 +98,6 @@ CAMERA <- R6::R6Class("CAMERA", list(
   # Methods
   #' @description
   #' Create a new dataset and initialise an R interface
-  #' @param exposure_ids Exposures IDs obtained from IEU GWAS database (https://gwas.mrcieu.ac.uk/) for each population
-  #' @param outcome_ids Outcome IDs obtained from IEU GWAS database (https://gwas.mrcieu.ac.uk/) for each population
-  #' @param pops Ancestry information for each population (i.e. AFR, AMR, EUR, EAS, SAS)
-  #' @param bfiles Locations of LD reference files for each population (Download from: http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz)
-  #' @param plink Location of executable plink (ver.1.90 is recommended)
-  #' @param radius Genomic window size to extract SNPs
-  #' @param clump_pop Reference population for clumping
   #' @param x Import data where available
   initialize = function(exposure_ids = NULL, outcome_ids = NULL, pops = NULL, bfiles = NULL, plink = NULL, radius = NULL, clump_pop = NULL, x = NULL) {
     if (!is.null(x)) {
