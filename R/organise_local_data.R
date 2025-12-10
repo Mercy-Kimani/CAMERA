@@ -2,6 +2,28 @@
 #' @docType class
 #' @description
 #' A simple wrapper function for importing data from local files for use with the CAMERA class.
+#' @param metadata Data frame with information about the data. One row per dataset. See details for info on columns
+#' @param ld_ref Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference
+#' @param plink_bin Location of executable plink (ver.1.90 is recommended)
+#' @param radius Genomic window size to extract SNPs
+#' @param clump_pop Reference population for clumping
+#' @param pthresh P-value threshold for instrument inclusion
+#' @param minmaf Minimum allele frequency per dataset
+#' @param d data.frame
+#' @param ea_col Column name for effect allele
+#' @param oa_col Column name for other allele
+#' @param beta_col Column name containing beta coefficients
+#' @param eaf_col Column name containing allele frequency for effect allele
+#' @param chr_col Column name containing chromosome
+#' @param pos_col Column name containing position
+#' @param vid_col Column name containing variant ID
+#' @param m File object
+#' @param rawdat The raw data
+#' @param tophits The top hits
+#' @param radius Default 250000
+#' @param mc.cores Number of cores to use
+#' @param beta_mat Matrix of beta coefficients
+#' @param se_mat Matrix of SEs
 #' @export
 CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
     #' @field metadata Data frame with information about the data. One row per dataset. See details for info on columns
@@ -28,13 +50,6 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
     # Methods
     #' @description
     #' Create a new dataset and initialise an R interface
-    #' @param metadata Data frame with information about the data. One row per dataset. See details for info on columns
-    #' @param ld_ref Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference
-    #' @param plink_bin Location of executable plink (ver.1.90 is recommended)
-    #' @param radius Genomic window size to extract SNPs
-    #' @param clump_pop Reference population for clumping
-    #' @param pthresh P-value threshold for instrument inclusion
-    #' @param minmaf Minimum allelel frequency per dataset
     initialize = function(metadata, ld_ref, plink_bin, mc.cores=1, radius = 25000, pthresh = 5e-8, minmaf=0.01) {
         self$metadata <- metadata
         self$plink_bin <- plink_bin
@@ -46,13 +61,6 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
 
     #' @description
     #' Standardise the allele coding
-    #' @param ea_col Column name for effect allele
-    #' @param oa_col Column name for other allele
-    #' @param beta_col Column name containing beta coefficients
-    #' @param eaf_col Column name containing allele frequency for effect allele
-    #' @param chr_col Column name containing chromosome
-    #' @param pos_col Column name containing position
-    #' @param vid_col Column name containing variant ID
     standardise = function(d, ea_col="ea", oa_col="oa", beta_col="beta", eaf_col="eaf", chr_col="chr", pos_col="pos", vid_col="vid") {
         toflip <- d[[ea_col]] > d[[oa_col]]
         d[[eaf_col]][toflip] <- 1 - d[[eaf_col]][toflip]
@@ -66,8 +74,6 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
 
     #' @description
     #' Function to read in a file
-    #' @param m File object
-    #' @param minmaf Minimum allelel frequency per dataset
     read_file = function(m, minmaf=0.01) {
         stopifnot(nrow(m) == 1)
         stopifnot(file.exists(m$fn))
@@ -88,6 +94,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         return(b)
     },
 
+    #' @description
+    #' Pool the top hits
     pool_tophits = function(rawdat, tophits, metadata, radius = 250000, pthresh = 5e-8, mc.cores = 10) {
         regions <- GRanges(
             seqnames = tophits$chr,
@@ -140,6 +148,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         return(out)
     },
 
+    #' @description
+    #' A function to organise the data
     organise_data = function(metadata=self$metadata, plink_bin=self$plink_bin, ld_ref=self$ld_ref, pthresh=self$pthresh, minmaf = self$minmaf, radius = self$radius, mc.cores = self$mc.cores) {
         # read in data
 
@@ -171,6 +181,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         return(out)
     },
 
+    #' @description
+    #' A function to perform fixed effect meta-analysis
     fixed_effects_meta_analysis_fast = function(beta_mat, se_mat) {
         w <- 1 / se_mat^2
         beta <- rowSums(beta_mat * w, na.rm=TRUE) / rowSums(w, na.rm=TRUE)
@@ -179,6 +191,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         return(pval)
     },
 
+    #' @description
+    #' Organise the output
     organise = function() {
         metadata <- self$metadata
         ld_ref <- self$ld_ref
