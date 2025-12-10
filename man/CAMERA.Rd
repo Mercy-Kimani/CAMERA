@@ -8,6 +8,33 @@
 A simple wrapper function.
 Using a summary set, identify set of instruments for the traits, and perform SEM MR to test the association across the population.
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{output}}{A list for the output}
+
+\item{\code{source}}{The source of the data.}
+
+\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+
+\item{\code{outcome_ids}}{Outcome IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+
+\item{\code{exposure_metadata}}{Exposure metadata}
+
+\item{\code{outcome_metadata}}{Outcome metadata}
+
+\item{\code{radius}}{Genomic window size to extract SNPs}
+
+\item{\code{pops}}{Ancestry information for each population (i.e., AFR, AMR, EUR, EAS, SAS)}
+
+\item{\code{bfiles}}{Locations of LD reference files for each population (Download from: \url{http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz})}
+
+\item{\code{plink}}{Location of executable plink (version 1.90 is recommended)}
+
+\item{\code{clump_pop}}{Reference population for clumping}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
