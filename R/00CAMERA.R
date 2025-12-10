@@ -1,5 +1,5 @@
 #' R6 class for CAMERA
-#'
+#' @docType class
 #' @description
 #' A simple wrapper function.
 #' Using a summary set, identify set of instruments for the traits, and peform SEM MR to test the association across the population.
