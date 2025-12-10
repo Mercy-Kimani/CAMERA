@@ -34,6 +34,15 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         self$minmaf <- minmaf
     },
 
+    #' @description
+    #' Standardise the allele coding
+    #' @param ea_col Column name for effect allele
+    #' @param oa_col Column name for other allele
+    #' @param beta_col Column name containing beta coefficients
+    #' @param eaf_col Column name containing allele frequency for effect allele
+    #' @param chr_col Column name containing chromosome
+    #' @param pos_col Column name containing position
+    #' @param vid_col Column name containing variant ID
     standardise = function(d, ea_col="ea", oa_col="oa", beta_col="beta", eaf_col="eaf", chr_col="chr", pos_col="pos", vid_col="vid") {
         toflip <- d[[ea_col]] > d[[oa_col]]
         d[[eaf_col]][toflip] <- 1 - d[[eaf_col]][toflip]
