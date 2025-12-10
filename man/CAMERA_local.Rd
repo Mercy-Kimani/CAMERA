@@ -71,13 +71,15 @@ Create a new dataset and initialise an R interface
 
 \item{\code{plink_bin}}{Location of executable plink (ver.1.90 is recommended)}
 
+\item{\code{mc.cores}}{Number of cores to use}
+
 \item{\code{radius}}{Genomic window size to extract SNPs}
+
+\item{\code{radius}}{Default 250000}
 
 \item{\code{pthresh}}{P-value threshold for instrument inclusion}
 
-\item{\code{minmaf}}{Minimum allelel frequency per dataset}
-
-\item{\code{clump_pop}}{Reference population for clumping}
+\item{\code{minmaf}}{Minimum allele frequency per dataset}
 }
 \if{html}{\out{</div>}}
 }
@@ -103,6 +105,8 @@ Standardise the allele coding
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{d}}{data.frame}
+
 \item{\code{ea_col}}{Column name for effect allele}
 
 \item{\code{oa_col}}{Column name for other allele}
@@ -134,7 +138,7 @@ Function to read in a file
 \describe{
 \item{\code{m}}{File object}
 
-\item{\code{minmaf}}{Minimum allelel frequency per dataset}
+\item{\code{minmaf}}{Minimum allele frequency per dataset}
 }
 \if{html}{\out{</div>}}
 }
@@ -143,6 +147,7 @@ Function to read in a file
 \if{html}{\out{<a id="method-CAMERA_local-pool_tophits"></a>}}
 \if{latex}{\out{\hypertarget{method-CAMERA_local-pool_tophits}{}}}
 \subsection{Method \code{pool_tophits()}}{
+Pool the top hits
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA_local$pool_tophits(
   rawdat,
@@ -154,11 +159,31 @@ Function to read in a file
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rawdat}}{The raw data}
+
+\item{\code{tophits}}{The top hits}
+
+\item{\code{metadata}}{Data frame with information about the data. One row per dataset. See details for info on columns}
+
+\item{\code{radius}}{Genomic window size to extract SNPs}
+
+\item{\code{radius}}{Default 250000}
+
+\item{\code{pthresh}}{P-value threshold for instrument inclusion}
+
+\item{\code{mc.cores}}{Number of cores to use}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA_local-organise_data"></a>}}
 \if{latex}{\out{\hypertarget{method-CAMERA_local-organise_data}{}}}
 \subsection{Method \code{organise_data()}}{
+A function to organise the data
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA_local$organise_data(
   metadata = self$metadata,
@@ -171,20 +196,52 @@ Function to read in a file
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{metadata}}{Data frame with information about the data. One row per dataset. See details for info on columns}
+
+\item{\code{plink_bin}}{Location of executable plink (ver.1.90 is recommended)}
+
+\item{\code{ld_ref}}{Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference}
+
+\item{\code{pthresh}}{P-value threshold for instrument inclusion}
+
+\item{\code{minmaf}}{Minimum allele frequency per dataset}
+
+\item{\code{radius}}{Genomic window size to extract SNPs}
+
+\item{\code{radius}}{Default 250000}
+
+\item{\code{mc.cores}}{Number of cores to use}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA_local-fixed_effects_meta_analysis_fast"></a>}}
 \if{latex}{\out{\hypertarget{method-CAMERA_local-fixed_effects_meta_analysis_fast}{}}}
 \subsection{Method \code{fixed_effects_meta_analysis_fast()}}{
+A function to perform fixed effect meta-analysis
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA_local$fixed_effects_meta_analysis_fast(beta_mat, se_mat)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{beta_mat}}{Matrix of beta coefficients}
+
+\item{\code{se_mat}}{Matrix of SEs}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA_local-organise"></a>}}
 \if{latex}{\out{\hypertarget{method-CAMERA_local-organise}{}}}
 \subsection{Method \code{organise()}}{
+Organise the output
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA_local$organise()}\if{html}{\out{</div>}}
 }
