@@ -3,7 +3,7 @@
 #' @description
 #' A simple wrapper function for importing data from local files for use with the CAMERA class.
 #' @export
-CAMERA_local <- R6::R6Class("CAMERA_local", list(
+CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
     metadata = NULL,
     ld_ref = NULL,
     mc.cores = NULL,
