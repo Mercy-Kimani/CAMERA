@@ -99,10 +99,20 @@ Standardise the allele coding
 \if{html}{\out{<a id="method-CAMERA_local-read_file"></a>}}
 \if{latex}{\out{\hypertarget{method-CAMERA_local-read_file}{}}}
 \subsection{Method \code{read_file()}}{
+Function to read in a file
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA_local$read_file(m, minmaf = 0.01)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{m}}{File object}
+
+\item{\code{minmaf}}{Minor allele frequency}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA_local-pool_tophits"></a>}}
