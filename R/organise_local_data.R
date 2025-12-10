@@ -4,15 +4,25 @@
 #' A simple wrapper function for importing data from local files for use with the CAMERA class.
 #' @export
 CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
+    #' @field metadata Data frame with information about the data. One row per dataset. See details for info on columns
     metadata = NULL,
+    #' @field ld_ref Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference
     ld_ref = NULL,
+    #' @field mc.cores The number of processor cores to use
     mc.cores = NULL,
+    #' @field plink_bin Location of executable plink (ver.1.90 is recommended)
     plink_bin = NULL,
+    #' @field minmaf Minimum allelel frequency per dataset
     minmaf = NULL,
+    #' @field pthresh P-value threshold for instrument inclusion
     pthresh = NULL,
+    #' @field instrument_raw A data frame of pooled instruments across all ancestries, that has been extracted from each ancestry for the exposure traits
     instrument_raw = NULL,
+    #' @field instrument_outcome Instruments in `instrument_raw` extracted from the outcome datasets
     instrument_outcome = NULL,
+    #' @field instrument_regions Named list of data frames of length number of unique instruments in `instrument_raw`. Names of each item are the instruments. Each item is a list of regional extracts around the instrument from each population exposure study.
     instrument_regions = NULL,
+    #' @field instrument_outcome_regions As per `instrument_regions` but for the outcome datasets.
     instrument_outcome_regions = NULL,
 
     # Methods
