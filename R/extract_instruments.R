@@ -226,12 +226,12 @@ CAMERA$set("public", "plot_regional_instruments_maxz", function(instrument_regio
 #' @description
 #' If we want to do fine mapping we need to get an LD matrix for the whole region (for each population)
 #' We then need to harmonise the LD matrix to the summary data, and the summary datasets to each other
-#' The fuction obtains an LD matrix for the selected genomic regions.
+#' The function obtains an LD matrix for the selected genomic regions.
 #'
 #' @param instrument_regions Genomic regions identified by using \code{x$extract_instrument_regions()}
 #' @param bfiles Location of LD reference files for each population (Download from: http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz)
 #' @param pops Ancestry information for each population (i.e. AFR, AMR, EUR, EAS, SAS)
-#' @param plink Location of executable plink (ver.1.90 is recommended)
+#' @param plink Location of executable plink (version 1.90 is recommended)
 #' @return Data frame of LD matrix (x$ld_matrices)
 CAMERA$set("public", "regional_ld_matrices", function(instrument_regions = self$instrument_regions, bfiles = self$bfiles, pops = self$pops, plink = self$plink) {
   if (!is.null(bfiles)) {

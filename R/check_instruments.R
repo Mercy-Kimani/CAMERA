@@ -215,7 +215,7 @@ CAMERA$set("public", "estimate_instrument_specificity", function(instrument, alp
 })
 
 #' @description
-#' The fuction explains what contributes to the replication of gene-trait association between the populations, considering LD structure.
+#' The function explains what contributes to the replication of gene-trait association between the populations, considering LD structure.
 #' @param instrument Intsruments for the exposure that are selected by using the provided methods in CAMERA (x$instrument_raw, x$instrument_maxz, x$instrument_susie, x$instrument_paintor). Default is x$instrument_raw.
 #' @param ld LD matrix obtained by using \code{x$regional_ld_matrices()}
 #' @return Table of the regression result

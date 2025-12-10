@@ -4,7 +4,7 @@
 #' A simple wrapper function for importing data from local files for use with the CAMERA class.
 #' @param metadata Data frame with information about the data. One row per dataset. See details for info on columns
 #' @param ld_ref Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference
-#' @param plink_bin Location of executable plink (ver.1.90 is recommended)
+#' @param plink_bin Location of executable plink (version 1.90 is recommended)
 #' @param radius Genomic window size to extract SNPs
 #' @param clump_pop Reference population for clumping
 #' @param pthresh P-value threshold for instrument inclusion
@@ -32,9 +32,9 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
     ld_ref = NULL,
     #' @field mc.cores The number of processor cores to use
     mc.cores = NULL,
-    #' @field plink_bin Location of executable plink (ver.1.90 is recommended)
+    #' @field plink_bin Location of executable plink (version 1.90 is recommended)
     plink_bin = NULL,
-    #' @field minmaf Minimum allelel frequency per dataset
+    #' @field minmaf Minimum allele frequency per dataset
     minmaf = NULL,
     #' @field pthresh P-value threshold for instrument inclusion
     pthresh = NULL,
