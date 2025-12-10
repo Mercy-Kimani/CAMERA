@@ -59,7 +59,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             pval = as.numeric(a[[m$pval_col]]),
             ea = a[[m$ea_col]],
             oa = a[[m$oa_col]]
-        ) %>% 
+        ) %>%
         filter(eaf > minmaf & eaf < (1-minmaf)) %>%
         standardise()
         return(b)
@@ -69,7 +69,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         regions <- GRanges(
             seqnames = tophits$chr,
             ranges = IRanges(start=tophits$pos-radius, end=tophits$pos+radius),
-            vid=tophits$vid, 
+            vid=tophits$vid,
             pop=tophits$pop,
             trait=tophits$trait
         )
@@ -98,16 +98,16 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                 k <- a %>% group_by(vid) %>% summarise(nstudies=n())
                 a <- left_join(a, k, by="vid")
                 k <- a %>% filter(trait == target_trait) %>%
-                    group_by(nstudies) %>% 
-                    summarise(minp = min(pval)) %>% 
+                    group_by(nstudies) %>%
+                    summarise(minp = min(pval)) %>%
                     filter(minp < pthresh)
                 a <- subset(a, nstudies %in% k$nstudies)
-                k <- subset(a, trait == target_trait) %>% 
+                k <- subset(a, trait == target_trait) %>%
                     mutate(z = abs(beta)/se) %>%
                     {subset(., z==max(z))$vid[1]}
                 a <- subset(a, vid == k) %>% mutate(target_trait=target_trait)
                 return(a)
-            }, mc.cores=10) %>% 
+            }, mc.cores=10) %>%
                 bind_rows()
         }) %>% bind_rows()
 
@@ -127,7 +127,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         # get top hits for each
         tophits <- lapply(1:nrow(metadata), \(i) {
             print(i)
-            x <- rawdat[[i]] %>% 
+            x <- rawdat[[i]] %>%
                 filter(pval < pthresh) %>%
                 mutate(rsid = vid)
             if(nrow(x) > 1) {
@@ -161,7 +161,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         ld_ref <- self$ld_ref
         exposure_trait <- subset(metadata, what = "exposure")$trait[1]
         outcome_trait <- subset(metadata, what = "outcome")$trait[1]
-        
+
         # Read exposure in once
         metadata_exp <- subset(metadata, what == "exposure")
         rawdat <- mclapply(1:nrow(metadata_exp), \(i) read_file(metadata_exp[i,]), mc.cores=self$mc.cores)
@@ -193,20 +193,20 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         instrument_raw
         instrument_regions <- lapply(unique(instrument_raw$rsid), \(x) {
-            a <- o$region_extract[[1]][[x]] %>% 
-                filter(trait == exposure_trait) %>% 
+            a <- o$region_extract[[1]][[x]] %>%
+                filter(trait == exposure_trait) %>%
                 rename(position="pos", nea="oa", p="pval", rsid="vid") %>%
-                group_by(pop) %>% 
+                group_by(pop) %>%
                 group_split() %>% as.list()
             names(a) <- sapply(a, \(z) z$id[1])
             a
         })
 
         instrument_outcome_regions <- lapply(unique(instrument_raw$rsid), \(x) {
-            a <- o$region_extract[[1]][[x]] %>% 
-                filter(trait == outcome_trait) %>% 
+            a <- o$region_extract[[1]][[x]] %>%
+                filter(trait == outcome_trait) %>%
                 rename(position="pos", nea="oa", p="pval", rsid="vid") %>%
-                group_by(pop) %>% 
+                group_by(pop) %>%
                 group_split() %>% as.list()
             names(a) <- sapply(a, \(z) z$id[1])
             a
