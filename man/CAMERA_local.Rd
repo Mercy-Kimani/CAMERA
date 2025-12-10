@@ -16,9 +16,9 @@ A simple wrapper function for importing data from local files for use with the C
 
 \item{\code{mc.cores}}{The number of processor cores to use}
 
-\item{\code{plink_bin}}{Location of executable plink (ver.1.90 is recommended)}
+\item{\code{plink_bin}}{Location of executable plink (version 1.90 is recommended)}
 
-\item{\code{minmaf}}{Minimum allelel frequency per dataset}
+\item{\code{minmaf}}{Minimum allele frequency per dataset}
 
 \item{\code{pthresh}}{P-value threshold for instrument inclusion}
 
@@ -69,7 +69,7 @@ Create a new dataset and initialise an R interface
 
 \item{\code{ld_ref}}{Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference}
 
-\item{\code{plink_bin}}{Location of executable plink (ver.1.90 is recommended)}
+\item{\code{plink_bin}}{Location of executable plink (version 1.90 is recommended)}
 
 \item{\code{mc.cores}}{Number of cores to use}
 
@@ -201,7 +201,7 @@ A function to organise the data
 \describe{
 \item{\code{metadata}}{Data frame with information about the data. One row per dataset. See details for info on columns}
 
-\item{\code{plink_bin}}{Location of executable plink (ver.1.90 is recommended)}
+\item{\code{plink_bin}}{Location of executable plink (version 1.90 is recommended)}
 
 \item{\code{ld_ref}}{Data frame with two columns - pop = population (referencing the pop values in metadata), bfile = path to plink file for that reference}
 
