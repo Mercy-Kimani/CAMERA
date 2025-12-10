@@ -227,6 +227,13 @@ Create a new dataset and initialise an R interface
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA$cross_estimate(dat = self$harmonised_dat)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-plot_cross_estimate"></a>}}
@@ -337,6 +344,13 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-paintor_finemap_regions"></a>}}
@@ -422,6 +436,13 @@ Create a new dataset and initialise an R interface
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA$estimate_instrument_heterogeneity_per_variant(dat = self$harmonised_dat)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-mrgxe"></a>}}
@@ -435,6 +456,13 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-mrgxe_plot"></a>}}
@@ -459,6 +487,13 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-make_outcome_data"></a>}}
@@ -517,6 +552,13 @@ Create a new dataset and initialise an R interface
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA$plot_pleiotropy(dat = self$pleiotropy_outliers)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-plot_pleiotropy_heterogeneity"></a>}}
@@ -529,6 +571,13 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-perform_basic_sem"></a>}}
@@ -561,6 +610,19 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{dat}}{Instruments for the exposure that are selected by using the provided methods in CAMERA (\code{x$instrument_raw}, \code{x$instrument_maxz}, \code{x$instrument_susie}, \code{x$instrument_paintor}). Default is \code{x$instrument_raw}.}
+
+\item{\code{standardise_unit}}{Use this option if unit information is not matched.}
+
+\item{\code{standardise_scale}}{Use this option if genetic effects are substantially different due to study power.}
+
+\item{\code{scaling_method}}{Choose the methods to obtain scaling units (MR estimates of exposure 1 and exposure 2 or outcome 1 and outcome 2). Default is \code{"simple_mode"}.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-clone"></a>}}
