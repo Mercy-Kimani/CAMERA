@@ -16,7 +16,7 @@ Depends:
 Imports: 
     dplyr,
     ggplot2,
-    ieugwasr (>= 0.1.8),
+    ieugwasr (>= 1.1.0),
     magrittr,
     tidyr
 Suggests: 
@@ -34,7 +34,6 @@ VignetteBuilder:
 Remotes:
     amandaforde/winnerscurse,
     explodecomputer/genetics.binaRies,
-    MRCIEU/ieugwasr,
     MRCIEU/TwoSampleMR,
     WSpiller/RadialMR
 Config/testthat/edition: 3
