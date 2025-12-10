@@ -92,6 +92,17 @@ Migrate the results from a previous CAMERA
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+
+\item{\code{outcome_ids}}{Outcome IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+
+\item{\code{pops}}{Ancestry information for each population (i.e., AFR, AMR, EUR, EAS, SAS)}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-new"></a>}}
@@ -114,15 +125,15 @@ Create a new dataset and initialise an R interface
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (https://gwas.mrcieu.ac.uk/) for each population}
+\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
 
-\item{\code{outcome_ids}}{Outcome IDs obtained from IEU GWAS database (https://gwas.mrcieu.ac.uk/) for each population}
+\item{\code{outcome_ids}}{Outcome IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
 
-\item{\code{pops}}{Ancestry information for each population (i.e. AFR, AMR, EUR, EAS, SAS)}
+\item{\code{pops}}{Ancestry information for each population (i.e., AFR, AMR, EUR, EAS, SAS)}
 
-\item{\code{bfiles}}{Locations of LD reference files for each population (Download from: http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz)}
+\item{\code{bfiles}}{Locations of LD reference files for each population (Download from: \url{http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz})}
 
-\item{\code{plink}}{Location of executable plink (ver.1.90 is recommended)}
+\item{\code{plink}}{Location of executable plink (version 1.90 is recommended)}
 
 \item{\code{radius}}{Genomic window size to extract SNPs}
 
@@ -207,6 +218,13 @@ Create a new dataset and initialise an R interface
 \if{html}{\out{<div class="r">}}\preformatted{CAMERA$extract_instruments(exposure_ids = self$exposure_ids, ...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-extract_instrument_regions"></a>}}
@@ -220,6 +238,15 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{radius}}{Genomic window size to extract SNPs}
+
+\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-scan_regional_instruments"></a>}}
@@ -260,6 +287,17 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bfiles}}{Locations of LD reference files for each population (Download from: \url{http://fileserve.mrcieu.ac.uk/ld/1kg.v3.tgz})}
+
+\item{\code{pops}}{Ancestry information for each population (i.e., AFR, AMR, EUR, EAS, SAS)}
+
+\item{\code{plink}}{Location of executable plink (version 1.90 is recommended)}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-susie_finemap_regions"></a>}}
@@ -339,6 +377,15 @@ Create a new dataset and initialise an R interface
 )}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{exposure_ids}}{Exposures IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+
+\item{\code{outcome_ids}}{Outcome IDs obtained from IEU GWAS database (\url{https://gwas.mrcieu.ac.uk}) for each population}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-CAMERA-estimate_instrument_heterogeneity_per_variant"></a>}}
