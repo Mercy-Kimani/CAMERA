@@ -11,6 +11,10 @@
 #' @param plink Location of executable plink (version 1.90 is recommended)
 #' @param radius Genomic window size to extract SNPs
 #' @param clump_pop Reference population for clumping
+#' @param dat Instruments for the exposure that are selected by using the provided methods in CAMERA (`x$instrument_raw`, `x$instrument_maxz`, `x$instrument_susie`, `x$instrument_paintor`). Default is `x$instrument_raw`.
+#' @param standardise_unit Use this option if unit information is not matched.
+#' @param standardise_scale Use this option if genetic effects are substantially different due to study power.
+#' @param scaling_method Choose the methods to obtain scaling units (MR estimates of exposure 1 and exposure 2 or outcome 1 and outcome 2). Default is `"simple_mode"`.
 #' @export
 CAMERA <- R6::R6Class("CAMERA", list(
   #' @field output A list for the output
