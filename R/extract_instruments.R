@@ -15,7 +15,6 @@ generate_vid <- function(d, ea = "ea", nea = "nea", eaf = "eaf", beta = "beta", 
 #'  This function searches for GWAS significant SNPs (P < 5E-8) for a specified set of the exposures. This method is equivalant to the instrumnet extraction method for Multivariable MR. Reference here: https://mrcieu.github.io/TwoSampleMR/reference/mv_extract_exposures.html.
 #' @param exposure_ids ID for the exposure. Default is x$exposure_ids.
 #' @return Data frame in x$instrument_raw
-#' @importFrom ieugwasr variants_rsid
 CAMERA$set("public", "extract_instruments", function(exposure_ids = self$exposure_ids, ...) {
   suppressMessages(instrument_raw <- TwoSampleMR::mv_extract_exposures(exposure_ids, ...))
   # Add chromosome and position
@@ -54,7 +53,6 @@ CAMERA$set("public", "extract_instruments", function(exposure_ids = self$exposur
 #' @param instrument_raw A set of instruments obtained from \code{x$extract_instruments()}
 #' @param exposure_ids ID for the exposure. Default is x$exposure_ids.
 #' @return Data frame in x$instrument_regions
-#' @importFrom ieugwasr associations
 CAMERA$set("public", "extract_instrument_regions", function(radius = self$radius, instrument_raw = self$instrument_raw, exposure_ids = self$exposure_ids) {
   # return a list of lists e.g.
   # region1:
@@ -183,7 +181,6 @@ CAMERA$set("public", "scan_regional_instruments", function(instrument_raw = self
 #' @param instruments Use this option to draw a separate plot for the selcted instruments.
 #' @param comparison Use this option to compare the selected instruments by different instrument selection methods in one plot.
 #' @return Plot
-#' @importFrom ggplot2 ggplot aes geom_point facet_grid geom_smooth scale_colour_brewer scale_x_log10 scale_y_log10 xlab ylab
 CAMERA$set("public", "plot_regional_instruments_maxz", function(instrument_region_zscores = self$instrument_region_zscores, instruments = self$instrument_raw, region = 1:min(10, nrow(instruments)), comparison = FALSE) {
   a <- instrument_region_zscores[region]
   a <- names(a) %>%
@@ -236,7 +233,6 @@ CAMERA$set("public", "plot_regional_instruments_maxz", function(instrument_regio
 #' @param pops Ancestry information for each population (i.e. AFR, AMR, EUR, EAS, SAS)
 #' @param plink Location of executable plink (ver.1.90 is recommended)
 #' @return Data frame of LD matrix (x$ld_matrices)
-#' @importFrom ieugwasr ld_matrix
 CAMERA$set("public", "regional_ld_matrices", function(instrument_regions = self$instrument_regions, bfiles = self$bfiles, pops = self$pops, plink = self$plink) {
   if (!is.null(bfiles)) {
     stopifnot(length(bfiles) == length(self$exposure_ids))

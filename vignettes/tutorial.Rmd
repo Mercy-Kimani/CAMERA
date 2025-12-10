@@ -21,7 +21,6 @@ knitr::opts_chunk$set(
 library(CAMeRa)
 ```
 
-
 ## Introduction
 
 This software attempts to bring together various tools to improve cross-ancestry Mendelian randomisation. It will use an example of performing analysis of BMI on coronary heart disease across four major ancestral groups.

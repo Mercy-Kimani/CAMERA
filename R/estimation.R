@@ -5,8 +5,8 @@
 #'
 #' @return A list containing the results of the analysis. The list includes the coefficients of the fitted models, and the results of the heterogeneity analysis.
 CAMERA$set("public", "cross_estimate", function(dat=self$harmonised_dat) {
-  mod1 <- lm(beta.y ~ -1 + beta.x, data=dat, weight=1/dat$se.y^2)
-  mod2 <- lm(beta.y ~ -1 + beta.x:as.factor(pops), data=dat, weight=1/dat$se.y^2)
+  mod1 <- stats::lm(beta.y ~ -1 + beta.x, data=dat, weight=1/dat$se.y^2)
+  mod2 <- stats::lm(beta.y ~ -1 + beta.x:as.factor(pops), data=dat, weight=1/dat$se.y^2)
   smod1 <- summary(mod1)
   smod2 <- summary(mod2)
   modcomp <- anova(mod1, mod2)
@@ -52,14 +52,14 @@ CAMERA$set("public", "plot_cross_estimate", function(est=self$mrres, qj_alpha=0.
 })
 
 #' Identify blown up estimates
-#' 
-#' Sometimes estimates appear unstable. They are likely unreliable and best to not use for heterogeneity analyses etc. 
-#' 
+#'
+#' Sometimes estimates appear unstable. They are likely unreliable and best to not use for heterogeneity analyses etc.
+#'
 #' @param b Vector of betas
 #' @param se Vector of SEs
 #' @param infl Inflation factor - how much larger is the estimate than the estimate of the tightest SE
-#' 
-#' @export 
+#'
+#' @export
 #' @return index of betas to remove
 identify_blownup_estimates <- function(b, se, infl) {
   semin <- which.min(se)
@@ -67,11 +67,11 @@ identify_blownup_estimates <- function(b, se, infl) {
 }
 
 #' Perform fixed effects meta analysis for one association
-#' 
+#'
 #' @param beta_vec Vector of betas
 #' @param se_vec Vector of ses
 #' @param infl Inflation factor - how much larger is the estimate than the estimate of the tightest SE - for use in removing unreliable estimates
-#' 
+#'
 #' @export
 #' @return list of results
 fixed_effects_meta_analysis <- function(beta_vec, se_vec, infl=10000) {
@@ -81,12 +81,12 @@ fixed_effects_meta_analysis <- function(beta_vec, se_vec, infl=10000) {
     w <- 1 / se_vec^2
     beta <- sum(beta_vec * w, na.rm=T) / sum(w, na.rm=T)
     se <- sqrt(1 / sum(w, na.rm=T))
-    pval <- pnorm(abs(beta / se), lower.tail = FALSE)
+    pval <- stats::pnorm(abs(beta / se), lower.tail = FALSE)
     Qj <- w * (beta-beta_vec)^2
     Q <- sum(Qj, na.rm=T)
     Qdf <- sum(!is.na(beta_vec))-1
     if(Qdf == 0) Q <- 0
-    Qjpval <- pchisq(Qj, 1, lower.tail=FALSE)
-    Qpval <- pchisq(Q, Qdf, lower.tail=FALSE)
+    Qjpval <- stats::pchisq(Qj, 1, lower.tail=FALSE)
+    Qpval <- stats::pchisq(Q, Qdf, lower.tail=FALSE)
     return(list(beta=beta, se=se, pval=pval, Q=Q, Qdf=Qdf, Qpval=Qpval, Qj=Qj, Qjpval=Qjpval))
 }

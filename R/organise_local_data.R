@@ -79,7 +79,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         stopifnot(file.exists(m$fn))
         a <- data.table::fread(m$fn)
         message("Read ", nrow(a), " rows")
-        b <- tibble(
+        b <- dplyr::tibble(
             chr = a[[m$chr_col]],
             pos = as.numeric(a[[m$pos_col]]),
             eaf = as.numeric(a[[m$eaf_col]]),
@@ -116,8 +116,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
                 message(i, " of ", length(region))
                 a <- lapply(1:nrow(metadata), \(j) {
                     subset(rawdat[[j]], chr == as.character(seqnames(region)[i]) & pos <= end(region)[i] & pos >= start(region)[i]) %>%
-                        mutate(trait = metadata$trait[j], pop = metadata$pop[j], id = metadata$id[j])
-                }) %>% bind_rows()
+                        dplyr::mutate(trait = metadata$trait[j], pop = metadata$pop[j], id = metadata$id[j])
+                }) %>% dplyr::bind_rows()
             })
         })
 
@@ -134,13 +134,13 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
                     filter(minp < pthresh)
                 a <- subset(a, nstudies %in% k$nstudies)
                 k <- subset(a, trait == target_trait) %>%
-                    mutate(z = abs(beta)/se) %>%
+                    dplyr::mutate(z = abs(beta)/se) %>%
                     {subset(., z==max(z))$vid[1]}
-                a <- subset(a, vid == k) %>% mutate(target_trait=target_trait)
+                a <- subset(a, vid == k) %>% dplyr::mutate(target_trait=target_trait)
                 return(a)
             }, mc.cores=10) %>%
-                bind_rows()
-        }) %>% bind_rows()
+                dplyr::bind_rows()
+        }) %>% dplyr::bind_rows()
 
         region_list <- lapply(region_list, as_tibble)
 
@@ -161,16 +161,16 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         tophits <- lapply(1:nrow(metadata), \(i) {
             print(i)
             x <- rawdat[[i]] %>%
-                filter(pval < pthresh) %>%
-                mutate(rsid = vid)
+                dplyr::filter(pval < pthresh) %>%
+                dplyr::mutate(rsid = vid)
             if(nrow(x) > 1) {
                 ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=subset(ld_ref, pop == metadata$pop[i])$bfile) %>%
-                    select(-c(rsid)) %>%
-                    mutate(pop=metadata$pop[i], trait=metadata$trait[i])
+                    dplyr::select(-c(rsid)) %>%
+                    dplyr::mutate(pop=metadata$pop[i], trait=metadata$trait[i])
             } else {
                 NULL
             }
-        }) %>% bind_rows()
+        }) %>% dplyr::bind_rows()
 
         # Get +-250kb region for every tophit
         # Get union of regions
@@ -187,7 +187,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", public = list(
         w <- 1 / se_mat^2
         beta <- rowSums(beta_mat * w, na.rm=TRUE) / rowSums(w, na.rm=TRUE)
         se <- sqrt(1 / rowSums(w, na.rm=TRUE))
-        pval <- pnorm(abs(beta / se), lower.tail = FALSE)
+        pval <- stats::pnorm(abs(beta / se), lower.tail = FALSE)
         return(pval)
     },
 
