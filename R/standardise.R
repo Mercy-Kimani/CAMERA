@@ -165,8 +165,6 @@ CAMERA$set("public", "standardise_data", function(dat = self$instrument_raw, sta
   invisible(self)
 })
 
-#' @importFrom dplyr group_by mutate
-#' @importFrom tidyr replace_na
 CAMERA$set("private", "sd_standardise", function(dat = dat) {
   d <- dat %>%
     dplyr::group_by(id) %>%
@@ -187,8 +185,6 @@ CAMERA$set("private", "sd_standardise", function(dat = dat) {
 })
 
 
-#' @importFrom dplyr mutate group_by bind_rows
-#' @importFrom ieugwasr afl2_rsid
 CAMERA$set("private", "allele_frequency", function(dat = dat) {
   if (!any(names(dat) %in% c("beta.outcome"))) {
     dat <- dat %>%
