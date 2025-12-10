@@ -1,5 +1,5 @@
 #' CAMERA_local class
-#'
+#' @docType class
 #' @description
 #' A simple wrapper function for importing data from local files for use with the CAMERA class.
 #' @export
