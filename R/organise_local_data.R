@@ -8,6 +8,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
     ld_ref = NULL,
     mc.cores = NULL,
     plink_bin = NULL,
+    radius = NULL,
     minmaf = NULL,
     pthresh = NULL,
     instrument_raw = NULL,
