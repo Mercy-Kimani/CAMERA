@@ -82,7 +82,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         region_extract <- lapply(1:length(region_list), \(tr) {
             region <- region_list[[tr]]
-            parallel::mclapply(1:length(region), \(i) {
+            lapply()(1:length(region), \(i) {
                 message(i, " of ", length(region))
                 a <- lapply(1:nrow(metadata), \(j) {
                     subset(rawdat[[j]], chr == as.character(seqnames(region)[i]) & pos <= end(region)[i] & pos >= start(region)[i]) %>%
@@ -93,7 +93,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         pool <- lapply(1:length(region_extract), \(tr) {
             region <- region_extract[[tr]]
-            parallel::mclapply(1:length(region), \(i) {
+            lapply()(1:length(region), \(i) {
                 target_trait <- region_list[[tr]]$trait[1]
                 a <- region[[i]]
                 k <- a %>% group_by(vid) %>% summarise(nstudies=n())
@@ -118,11 +118,11 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         return(out)
     },
 
-    organise_data = function(metadata=self$metadata, plink_bin=self$plink_bin, ld_ref=self$ld_ref, pthresh=self$pthresh, minmaf = self$minmaf, radius = self$radius, mc.cores = self$mc.cores) {
+    organise_data = function(metadata=self$metadata, plink_bin=self$plink_bin, ld_ref=self$ld_ref, pthresh=self$pthresh, minmaf = self$minmaf, radius = self$radius, mc.cores = self$mc.cores, rawdat = NULL) {
         # read in data
 
         if(is.null(rawdat)) {
-            rawdat <- parallel::mclapply(1:nrow(metadata), \(i) read_file(metadata[i,]))
+            rawdat <- lapply()(1:nrow(metadata), \(i) read_file(metadata[i,]))
         }
 
         # get top hits for each
@@ -168,8 +168,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         outcome_trait <- metadata_out$trait[1]
         
         # Read exposure datasets
-        rawdat <- parallel::mclapply(1:nrow(metadata_exp), function(i) {
-            read_file(metadata_exp[i, ])
+        rawdat <- lapply()(1:nrow(metadata_exp), function(i) {
+            self$read_file(metadata_exp[i, ])
         }, mc.cores = self$mc.cores)
         
        # Process each outcome trait
@@ -178,8 +178,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         out <- lapply(outcome_traits, function(trt) {
             message("Processing outcome: ", trt)
             temp <- metadata_out[metadata_out$trait == trt, ]
-            rawdat_this <- parallel::mclapply(1:nrow(temp), function(i) {
-                read_file(temp[i, ])
+            rawdat_this <- lapply()(1:nrow(temp), function(i) {
+                self$read_file(temp[i, ])
             }, mc.cores = self$mc.cores)
             rawdat_all <- c(rawdat, rawdat_this)
 
