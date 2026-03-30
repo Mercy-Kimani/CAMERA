@@ -82,7 +82,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         region_extract <- lapply(1:length(region_list), \(tr) {
             region <- region_list[[tr]]
-            mclapply(1:length(region), \(i) {
+            parallel::mclapply(1:length(region), \(i) {
                 message(i, " of ", length(region))
                 a <- lapply(1:nrow(metadata), \(j) {
                     subset(rawdat[[j]], chr == as.character(seqnames(region)[i]) & pos <= end(region)[i] & pos >= start(region)[i]) %>%
@@ -93,7 +93,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         pool <- lapply(1:length(region_extract), \(tr) {
             region <- region_extract[[tr]]
-            mclapply(1:length(region), \(i) {
+            parallel::mclapply(1:length(region), \(i) {
                 target_trait <- region_list[[tr]]$trait[1]
                 a <- region[[i]]
                 k <- a %>% group_by(vid) %>% summarise(nstudies=n())
@@ -122,7 +122,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         # read in data
 
         if(is.null(rawdat)) {
-            rawdat <- mclapply(1:nrow(metadata), \(i) read_file(metadata[i,]))
+            rawdat <- parallel::mclapply(1:nrow(metadata), \(i) read_file(metadata[i,]))
         }
 
         # get top hits for each
