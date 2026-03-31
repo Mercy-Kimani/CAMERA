@@ -62,7 +62,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             oa = a[[m$oa_col]]
         ) %>% 
         filter(eaf > minmaf & eaf < (1-minmaf)) %>%
-        standardise()
+        self$standardise()
         return(b)
     },
 
