@@ -160,8 +160,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
     organise = function() {
         metadata <- self$metadata
         ld_ref <- self$ld_ref
-        exposure_trait <- subset(metadata, what = "exposure")$trait[1]
-        outcome_trait <- subset(metadata, what = "outcome")$trait[1]
+        exposure_trait <- subset(metadata, what == "exposure")$trait[1]
+        outcome_trait <- subset(metadata, what == "outcome")$trait[1]
         
         # Read exposure in once
         metadata_exp <- subset(metadata, what == "exposure")
