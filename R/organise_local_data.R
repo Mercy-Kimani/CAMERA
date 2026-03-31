@@ -26,7 +26,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
     #' @param clump_pop Reference population for clumping
     #' @param pthresh P-value threshold for instrument inclusion
     #' @param minmaf Minimum allelel frequency per dataset
-    initialize = function(metadata, ld_ref, plink_bin, mc.cores=1, radius = 25000, pthresh = 5e-8, minmaf=0.01) {
+    initialize = function(metadata, ld_ref, plink_bin, mc.cores=1, radius = 250000, pthresh = 5e-8, minmaf=0.01) {
         self$metadata <- metadata
         self$plink_bin <- plink_bin
         self$radius <- radius
@@ -122,7 +122,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         # read in data
 
         if(is.null(rawdat)) {
-            rawdat <- mclapply(1:nrow(metadata), \(i) read_file(metadata[i,]))
+            rawdat <- mclapply(1:nrow(metadata), \(i) self$read_file(metadata[i,]))
         }
 
         # get top hits for each
@@ -165,7 +165,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         
         # Read exposure in once
         metadata_exp <- subset(metadata, what == "exposure")
-        rawdat <- mclapply(1:nrow(metadata_exp), \(i) read_file(metadata_exp[i,]), mc.cores=self$mc.cores)
+        rawdat <- mclapply(1:nrow(metadata_exp), \(i) self$read_file(metadata_exp[i,]), mc.cores=self$mc.cores)
 
         out <- subset(metadata, what == "outcome")$trait %>%
             unique() %>% {
@@ -173,10 +173,10 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                 message(x)
 
                 temp <- subset(metadata, trait == x)
-                rawdat_this <- mclapply(1:nrow(temp), \(i) read_file(temp[i,]))
+                rawdat_this <- mclapply(1:nrow(temp), \(i) self$read_file(temp[i,]))
                 rawdat_this <- c(rawdat, rawdat_this)
 
-                a <- organise_data(subset(metadata, trait %in% c(exposure_trait, x)), self$plink_bin, self$ld_ref, self$mc.cores, rawdat=rawdat_this)
+                a <- self$organise_data(subset(metadata, trait %in% c(exposure_trait, x)), self$plink_bin, self$ld_ref, self$mc.cores, rawdat=rawdat_this)
                 return(a)
             })}
 
