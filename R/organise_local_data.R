@@ -132,7 +132,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                 filter(pval < pthresh) %>%
                 mutate(rsid = vid)
             if(nrow(x) > 1) {
-                ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]] %>%
+                ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]]) %>%
                     select(-c(rsid)) %>%
                     mutate(pop=metadata$pop[i], trait=metadata$trait[i])
             } else {
