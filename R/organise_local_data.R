@@ -118,7 +118,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         return(out)
     },
 
-    organise_data = function(metadata=self$metadata, plink_bin=self$plink_bin, ld_ref=self$ld_ref, pthresh=self$pthresh, minmaf = self$minmaf, radius = self$radius, mc.cores = self$mc.cores) {
+    organise_data = function(metadata=self$metadata, plink_bin=self$plink_bin, ld_ref=self$ld_ref, pthresh=self$pthresh, minmaf = self$minmaf, radius = self$radius, mc.cores = self$mc.cores, rawdat = NULL) {
         # read in data
 
         if(is.null(rawdat)) {
