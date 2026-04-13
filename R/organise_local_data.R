@@ -63,6 +63,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         ) %>% 
         filter(eaf > minmaf & eaf < (1-minmaf)) %>%
         self$standardise()
+        message("✔ After filtering: ", nrow(b), " rows")
         return(b)
     },
 
@@ -127,10 +128,16 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         # get top hits for each
         tophits <- lapply(1:nrow(metadata), \(i) {
+            
+            message("STEP 2: LD clumping dataset ", i)
+            
             print(i)
             x <- rawdat[[i]] %>% 
                 filter(pval < pthresh) %>%
                 mutate(rsid = vid)
+
+            message("✔ SNPs passing p-threshold: ", nrow(x))
+            
             if(nrow(x) > 1) {
                 ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=subset(ld_ref, pop == metadata$pop[i])$bfile) %>%
                     select(-c(rsid)) %>%
@@ -140,6 +147,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             }
         }) %>% bind_rows()
 
+        message("✔ Total top hits: ", nrow(tophits))
+        
         # Get +-250kb region for every tophit
         # Get union of regions
         # Extract regions from each trait
