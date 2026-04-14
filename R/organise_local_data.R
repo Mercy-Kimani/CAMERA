@@ -36,7 +36,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         self$minmaf <- minmaf
     },
 
-    standardise = function(d, ea_col="ea", oa_col="oa", beta_col="beta", eaf_col="eaf", chr_col="chr", pos_col="pos", vid_col="vid") {
+    standardise = function(d, ea_col="ea", oa_col="oa", beta_col="beta", eaf_col="eaf", chr_col="chr", pos_col="pos", snp_col="snp", vid_col="vid") {
         toflip <- d[[ea_col]] > d[[oa_col]]
         d[[eaf_col]][toflip] <- 1 - d[[eaf_col]][toflip]
         d[[beta_col]][toflip] <- d[[beta_col]][toflip] * -1
@@ -44,6 +44,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         d[[oa_col]][toflip] <- d[[ea_col]][toflip]
         d[[ea_col]][toflip] <- temp
         d[[vid_col]] <- paste0(d[[chr_col]], ":", d[[pos_col]], "_", d[[ea_col]], "_", d[[oa_col]])
+        d[[snp_col]] <- d$snp
         d
     },
 
@@ -53,6 +54,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         a <- data.table::fread(m$fn)
         message("Read ", nrow(a), " rows")
         b <- tibble(
+            snp = a[[m$snp_col]],
             chr = a[[m$chr_col]],
             pos = as.numeric(a[[m$pos_col]]),
             eaf = as.numeric(a[[m$eaf_col]]),
@@ -135,7 +137,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             print(i)
             x <- rawdat[[i]] %>% 
                 filter(pval < pthresh) %>%
-                mutate(rsid = vid)
+                mutate(rsid = snp)
 
             message("✔ SNPs passing p-threshold: ", nrow(x))
             
