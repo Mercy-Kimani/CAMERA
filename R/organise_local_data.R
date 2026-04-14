@@ -28,6 +28,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
     #' @param minmaf Minimum allelel frequency per dataset
     initialize = function(metadata, ld_ref, plink_bin, mc.cores=1, radius = 250000, pthresh = 5e-8, minmaf=0.01) {
         self$metadata <- metadata
+        self$ld_ref <- ld_ref
         self$plink_bin <- plink_bin
         self$radius <- radius
         self$mc.cores <- mc.cores
