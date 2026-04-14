@@ -142,8 +142,23 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             message("✔ SNPs passing p-threshold: ", nrow(x))
             
             if(nrow(x) > 1) {
-                ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1], clump_r2 = 0.5,
-    clump_kb = 250) %>%
+               clumped <- ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1], clump_r2 = 0.5,
+    clump_kb = 250)
+               message("✔ SNPs resulting from LD-clump: ", nrow(clumped))
+               
+                clumped_snps <- clumped$rsid
+                in_ref_snps <- intersect(x$rsid, clumped$rsid)
+
+               missing_snps <- setdiff(x$rsid, in_ref_snps)
+                
+               missing_dat <- x[x$rsid %in% missing_snps, ]
+               message("✔ SNPs missing from reference: ", nrow(missing_dat))
+                
+               clumped_dat <- x[x$rsid %in% clumped_snps, ]
+               message("✔ SNPs successfully clumped: ", nrow(clumped_dat)) 
+               
+                out <- rbind(clumped_dat, missing_dat)
+               out %>%
                     select(-c(rsid)) %>%
                     mutate(pop=metadata$pop[i], trait=metadata$trait[i])
             } else {
