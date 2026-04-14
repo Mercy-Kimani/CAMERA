@@ -142,29 +142,57 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             message("✔ SNPs passing p-threshold: ", nrow(x))
             
             if(nrow(x) > 1) {
-               clumped <- ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1], clump_r2 = 0.5,
-    clump_kb = 250)
-               message("✔ SNPs resulting from LD-clump: ", nrow(clumped))
+                out_prefix <- file.path(getwd(), paste0("plink_clump_dataset_", i))
                
-                clumped_snps <- clumped$rsid
-                in_ref_snps <- intersect(x$rsid, clumped$rsid)
+                clumped <- ieugwasr::ld_clump(x,
+                                              plink_bin=plink_bin,
+                                              bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1],
+                                              clump_r2 = 0.5,
+                                              clump_kb = 250,
+                                              plink_args = paste("--out", out_prefix))
+               
+                message("✔ SNPs resulting from LD-clump: ", nrow(clumped))
+               
+                log_file <- paste0(out_prefix, ".log")
+                if(file.exists(log_file)) {
+                    lines <- readLines(log_file)
+                    miss_lines <- grep("missing from the main dataset", lines, value = TRUE)
 
-               missing_snps <- setdiff(x$rsid, in_ref_snps)
-                
-               missing_dat <- x[x$rsid %in% missing_snps, ]
-               message("✔ SNPs missing from reference: ", nrow(missing_dat))
-                
-               clumped_dat <- x[x$rsid %in% clumped_snps, ]
-               message("✔ SNPs successfully clumped: ", nrow(clumped_dat)) 
-               
+                    if(length(miss_lines) > 0) {
+                        missing_snps <- sub(".*'([^']+)'.*", "\\1", miss_lines)
+                        } else {
+                        missing_snps <- character(0)
+                        }
+                    } else {
+                    missing_snps <- character(0)
+                    }
+
+                # safety: only keep SNPs present in x
+                missing_snps <- intersect(missing_snps, x$rsid)
+
+                message("✔ SNPs missing from reference (log): ", length(missing_snps))
+
+                # clumped SNPs
+                clumped_snps <- clumped$rsid
+
+                clumped_dat <- x[x$rsid %in% clumped_snps, ]
+                missing_dat <- x[x$rsid %in% missing_snps, ]
+
+                message("✔ SNPs successfully clumped: ", nrow(clumped_dat))
+                message("✔ SNPs added back (missing): ", nrow(missing_dat))
+
+                # ⭐ combine
                 out <- rbind(clumped_dat, missing_dat)
-               out %>%
-                    select(-c(rsid)) %>%
-                    mutate(pop=metadata$pop[i], trait=metadata$trait[i])
-            } else {
+
+                out %>%
+                select(-rsid) %>%
+                mutate(pop = metadata$pop[i], trait = metadata$trait[i])
+
+                } else {
                 NULL
-            }
-        }) %>% bind_rows()
+                }
+
+            }) %>% bind_rows()
 
         message("✔ Total top hits: ", nrow(tophits))
         
