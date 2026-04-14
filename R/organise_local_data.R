@@ -139,7 +139,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             message("✔ SNPs passing p-threshold: ", nrow(x))
             
             if(nrow(x) > 1) {
-                ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref[ld_ref$pop == metadata$pop[i], "bfile"] %>%
+                ieugwasr::ld_clump(x, plink_bin=plink_bin, bfile=ld_ref[ld_ref$pop == metadata$pop[i], "bfile"]) %>%
                     select(-c(rsid)) %>%
                     mutate(pop=metadata$pop[i], trait=metadata$trait[i])
             } else {
