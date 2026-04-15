@@ -141,57 +141,18 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
             message("✔ SNPs passing p-threshold: ", nrow(x))
 
-            missing_snps_log <- character(0)   
-            
+                  
             if(nrow(x) > 1) {
-                out_prefix <- file.path(getwd(), paste0("plink_clump_dataset_", i))
-               
-                clumped <- ieugwasr::ld_clump(x,
+                 clumped <- ieugwasr::ld_clump(x,
                                               plink_bin=plink_bin,
                                               bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1],
                                               clump_r2 = 0.5,
                                               clump_kb = 250,
-                                              plink_args = paste("--out", out_prefix))
+                                              )
                
                 message("✔ SNPs resulting from LD-clump: ", nrow(clumped))
                
-                #READ PLINK LOG
-                log_file <- paste0(out_prefix, ".log")
-                if(file.exists(log_file)) {
-                    lines <- readLines(log_file)
-                    warn_lines <- grep("missing from the main dataset", lines, value = TRUE)
-
-                    if(length(warn_lines) > 0) {
-
-                missing_snps_log <- unique(unlist(
-                    regmatches(warn_lines, gregexpr("rs[0-9]+", warn_lines))
-                ))
-            }
-        }
-
-        message("✔ SNPs missing (from log): ", length(missing_snps_log))
-
-                # clumped SNPs
-                clumped_snps <- clumped$rsid
-
-                clumped_dat <- x[x$rsid %in% clumped_snps, ]
-                missing_dat <- x[x$rsid %in% missing_snps_log, ]
-
-                message("✔ SNPs successfully clumped: ", nrow(clumped_dat))
-                message("✔ SNPs from log (missing refs): ", nrow(missing_dat))
-
-                # ⭐ combine
-                out <- rbind(clumped_dat, missing_dat)
-
-                out %>%
-                select(-rsid) %>%
-                mutate(pop = metadata$pop[i], trait = metadata$trait[i])
-
-                attr(out, "missing_from_log") <- missing_snps_log
-
-        return(out)
-
-                } else {
+            } else {
                 NULL
                 }
 
