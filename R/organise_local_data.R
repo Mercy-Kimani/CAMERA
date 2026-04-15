@@ -140,8 +140,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                 mutate(rsid = snp)
 
             message("✔ SNPs passing p-threshold: ", nrow(x))
-
-                  
+                 
             if(nrow(x) > 1) {
                  clumped <- ieugwasr::ld_clump(x,
                                               plink_bin=plink_bin,
