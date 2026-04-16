@@ -144,9 +144,6 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                                     bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1],
                                     clump_r2 = 0.5,
                                     clump_kb = 250)
-               
-                message("✔ SNPs resulting from LD-clump: ", nrow(clumped))
-               
             } else {
                 NULL
                 }
