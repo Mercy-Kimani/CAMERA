@@ -71,15 +71,15 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
     },
 
     pool_tophits = function(rawdat, tophits, metadata, radius = 250000, pthresh = 5e-8, mc.cores = 10) {
-        regions <- GRanges(
+        regions <- GenomicRanges::GRanges(
             seqnames = tophits$chr,
-            ranges = IRanges(start=tophits$pos-radius, end=tophits$pos+radius),
+            ranges = IRanges::IRanges(start=tophits$pos-radius, end=tophits$pos+radius),
             vid=tophits$vid, 
             pop=tophits$pop,
             trait=tophits$trait
         )
         region_list <- lapply(unique(tophits$trait), \(tr) {
-            temp <- reduce(subset(regions, trait == tr))
+            temp <- GenomicRanges::reduce(subset(regions, trait == tr))
             temp$trait <- tr
             temp
         })
