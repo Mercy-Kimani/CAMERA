@@ -143,7 +143,9 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                                     plink_bin=plink_bin,
                                     bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1],
                                     clump_r2 = 0.5,
-                                    clump_kb = 250)
+                                    clump_kb = 250)%>%
+                    select(-c(rsid)) %>%
+                    mutate(pop=metadata$pop[i], trait=metadata$trait[i])
             } else {
                 NULL
                 }
