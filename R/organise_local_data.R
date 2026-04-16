@@ -131,9 +131,6 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
 
         # get top hits for each
         tophits <- lapply(1:nrow(metadata), \(i) {
-            
-            message("STEP 2: LD clumping dataset ", i)
-            
             print(i)
             x <- rawdat[[i]] %>% 
                 filter(pval < pthresh) %>%
@@ -142,20 +139,18 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
             message("✔ SNPs passing p-threshold: ", nrow(x))
                  
             if(nrow(x) > 1) {
-                 clumped <- ieugwasr::ld_clump(x,
-                                              plink_bin=plink_bin,
-                                              bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1],
-                                              clump_r2 = 0.5,
-                                              clump_kb = 250,
-                                              )
+                 ieugwasr::ld_clump(x,
+                                    plink_bin=plink_bin,
+                                    bfile=ld_ref$bfile[ld_ref$pop == metadata$pop[i]][1],
+                                    clump_r2 = 0.5,
+                                    clump_kb = 250)
                
                 message("✔ SNPs resulting from LD-clump: ", nrow(clumped))
                
             } else {
                 NULL
                 }
-
-            }) %>% bind_rows()
+        }) %>% bind_rows()
 
         message("✔ Total top hits: ", nrow(tophits))
         
@@ -164,7 +159,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         # Extract regions from each trait
         # Keep SNPs that have at least one GWAS sig and present in all
         # Clump to get tophits
-        out <- pool_tophits(rawdat, tophits, metadata, radius = radius, pthresh = pthresh, mc.cores = mc.cores)
+        out <- self$pool_tophits(rawdat, tophits, metadata, radius = radius, pthresh = pthresh, mc.cores = mc.cores)
         return(out)
     },
 
