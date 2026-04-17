@@ -70,7 +70,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         return(b)
     },
 
-    pool_tophits = function(rawdat, tophits, metadata, radius = 250000, pthresh = 5e-8, mc.cores = 10) {
+    pool_tophits = function(rawdat, tophits, metadata, radius = 250000, pthresh = 5e-8, mc.cores = 1) {
         regions <- GenomicRanges::GRanges(
             seqnames = tophits$chr,
             ranges = IRanges::IRanges(start=tophits$pos-radius, end=tophits$pos+radius),
