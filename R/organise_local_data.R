@@ -112,7 +112,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
                     {subset(., z==max(z))$vid[1]}
                 a <- subset(a, vid == k) %>% mutate(target_trait=target_trait)
                 return(a)
-            }, mc.cores=10) %>% 
+            }, mc.cores=1) %>% 
                 bind_rows()
         }) %>% bind_rows()
 
