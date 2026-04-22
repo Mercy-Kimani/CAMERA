@@ -209,7 +209,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         instrument_regions <- lapply(unique(instrument_raw$rsid), \(x) {
             a <- o$region_extract[[1]][[x]] %>% 
                 filter(trait == exposure_trait) %>% 
-                rename(position="pos", nea="oa", p="pval", rsid="vid") %>%
+                dplyr::rename(position="pos", nea="oa", p="pval", rsid="vid") %>%
                 group_by(pop) %>% 
                 group_split() %>% as.list()
             names(a) <- sapply(a, \(z) z$id[1])
@@ -219,7 +219,7 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         instrument_outcome_regions <- lapply(unique(instrument_raw$rsid), \(x) {
             a <- o$region_extract[[1]][[x]] %>% 
                 filter(trait == outcome_trait) %>% 
-                rename(position="pos", nea="oa", p="pval", rsid="vid") %>%
+                dplyr::rename(position="pos", nea="oa", p="pval", rsid="vid") %>%
                 group_by(pop) %>% 
                 group_split() %>% as.list()
             names(a) <- sapply(a, \(z) z$id[1])
