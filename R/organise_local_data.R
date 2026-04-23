@@ -200,8 +200,8 @@ CAMERA_local <- R6::R6Class("CAMERA_local", list(
         names(o$region_extract[[1]]) <- inst
         names(o$region_extract[[2]]) <- inst_o
 
-        instrument_raw <- o$tophit_pool %>% filter(target_trait == exposure_trait & trait == exposure_trait) %>% rename(position="pos", nea="oa", p="pval", rsid="vid")
-        instrument_outcome <- subset(o$tophit_pool, trait == outcome_trait & target_trait == exposure_trait & vid %in% instrument_raw$rsid) %>% rename(position="pos", nea="oa", p="pval", rsid="vid")
+        instrument_raw <- o$tophit_pool %>% filter(target_trait == exposure_trait & trait == exposure_trait) %>% dplyr::rename(position="pos", nea="oa", p="pval", rsid="vid")
+        instrument_outcome <- subset(o$tophit_pool, trait == outcome_trait & target_trait == exposure_trait & vid %in% instrument_raw$rsid) %>% dplyr::rename(position="pos", nea="oa", p="pval", rsid="vid")
 
         # restrict regions to common snps
 
